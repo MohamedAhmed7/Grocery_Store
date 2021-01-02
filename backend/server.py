@@ -12,6 +12,7 @@ cors = CORS(app)
 @app.route('/')
 def index():
     return ("<h2>Grocery Shop Strore</h2>")
+
 @app.route('/get_products', methods = ['GET'])
 def get_products():
     connection = db_connect()
@@ -44,16 +45,13 @@ def insert_order():
     print(request_payload)
     customer_name = request_payload['customer_name']
 
-    '''order = {
-        'customer_name': request_payload['customer_name']
-    }'''
-    #print(order)
     order_id = order_dao.insert_order(connection, request_payload)
     response = jsonify({
-        'prodcut_id': order_id
+        'order_id': order_id
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
 @app.route('/delete_product', methods = ['POST'])
 def delete_product():
     connection = db_connect()
