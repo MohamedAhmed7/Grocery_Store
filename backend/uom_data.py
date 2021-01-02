@@ -1,6 +1,6 @@
 def get_uom(connection):
     cursor = connection.cursor()
-    query = "SELECT * FROM sample.uom;"
+    query = "SELECT * FROM grocery_store.uom;"
     cursor.execute(query)
     response = []
     for (uom_id, uom_name) in cursor:

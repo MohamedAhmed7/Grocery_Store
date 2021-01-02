@@ -21,9 +21,11 @@ def insert_order(connection, order):
     query = ("insert into orders"
             "(customer_name, total_price, time)"
             " VALUES (%s, %s, %s);")
-    data = (order['customer_name'], order['total'], datetime.now())
+
+    #print("here is the order!", order)
+    data = (order['customer_name'], order['grand_total'], datetime.now())
     cursor.execute(query, data)
-    connection.commit()
+    #connection.commit()
     order_id = cursor.lastrowid
     order_details_query = ("insert into order_details"
                            "(order_id, product_id, total_price, quantity)"
@@ -40,8 +42,6 @@ def insert_order(connection, order):
     cursor.executemany(order_details_query, order_details_data)
     connection.commit()
     #print("inserted successfully")
-
-
     # connection.close()
     return order_id
 
@@ -49,15 +49,15 @@ def insert_order(connection, order):
 if __name__ == "__main__":
     connection = db_connect()
     order = {
-        'customer_name': 'beso',
-        'total':300,
+        'customer_name': 'Hossam',
+        'grand_total':300,
         'order_details': [{
-            'product_id': 3,
+            'product_id': 1,
             'quantity': 2,
             'total_price': 20
         },
         {
-            'product_id': 3,
+            'product_id': 1,
             'quantity': 3,
             'total_price': 50
         }]
